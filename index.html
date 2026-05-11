@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Développeur</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font-family: 'Sora', sans-serif; }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim-up { animation: fadeUp 0.7s ease both; }
+    .anim-d1 { animation-delay: 0.1s; }
+    .anim-d2 { animation-delay: 0.2s; }
+    .anim-d3 { animation-delay: 0.3s; }
+    .anim-d4 { animation-delay: 0.4s; }
+    .anim-d5 { animation-delay: 0.5s; }
+    .anim-d6 { animation-delay: 0.6s; }
+
+    .skill-bar-fill {
+      transition: width 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+    .project-card:hover .project-visual {
+      transform: scale(1.05);
+    }
+
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .grain {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      z-index: 9999;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="w-full h-full overflow-auto" style="background:#0a0a0f; color:#e8e4df;">
+   <div class="grain"></div><!-- Nav -->
+   <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b" style="background:rgba(10,10,15,0.85); border-color: rgba(232,228,223,0.08);">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between"><span id="nav-name" class="mono text-sm font-medium" style="color:#c4a1ff;">dev.portfolio</span>
+     <div class="flex gap-6 text-sm"><a href="#about" class="nav-link opacity-70 hover:opacity-100 transition-opacity" style="color:#e8e4df;">À propos</a> <a href="#skills" class="nav-link opacity-70 hover:opacity-100 transition-opacity" style="color:#e8e4df;">Compétences</a> <a href="#projects" class="nav-link opacity-70 hover:opacity-100 transition-opacity" style="color:#e8e4df;">Projets</a>
+     </div>
+    </div>
+    <style>
+      .nav-link::after { background-color: #c4a1ff; }
+    </style>
+   </nav><!-- Hero -->
+   <section class="flex flex-col items-center justify-center text-center px-6" style="min-height: 90%; padding-top: 100px;">
+    <div class="anim-up anim-d1 mono text-xs tracking-widest uppercase mb-4 opacity-50">
+     📍 France — Maubeuge
+    </div>
+    <h1 id="hero-name" class="anim-up anim-d2 text-5xl md:text-7xl font-bold tracking-tight leading-tight" style="color:#e8e4df;">Développeur<br><span style="color:#c4a1ff;">Junior</span></h1>
+    <p id="hero-subtitle" class="anim-up anim-d3 mt-5 text-lg md:text-xl opacity-60 max-w-lg">Étudiant en BUT Informatique — passionné par le code et la résolution de problèmes</p>
+    <div class="anim-up anim-d4 mt-10 flex gap-4"><a href="#projects" class="px-6 py-3 rounded-full text-sm font-medium transition-all hover:scale-105" style="background:#c4a1ff; color:#0a0a0f;"> Voir mes projets </a> <a href="#about" class="px-6 py-3 rounded-full text-sm font-medium border transition-all hover:scale-105" style="border-color: rgba(232,228,223,0.15); color:#e8e4df;"> En savoir plus </a>
+    </div>
+    <div class="anim-up anim-d5 mt-16 opacity-30 animate-bounce"><i data-lucide="chevron-down" style="width:24px;height:24px;"></i>
+    </div>
+   </section><!-- About -->
+   <section id="about" class="max-w-3xl mx-auto px-6 py-24">
+    <div class="mono text-xs tracking-widest uppercase mb-3" style="color:#c4a1ff;">
+     01 — À propos
+    </div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-8" style="color:#e8e4df;">Qui suis-je ?</h2>
+    <p id="about-text" class="text-base md:text-lg leading-relaxed opacity-70">Étudiant en BUT Informatique à Maubeuge, je me passionne pour le développement logiciel et la création d'applications. J'ai une solide base en Python et Java, et j'aime relever des défis techniques à travers des projets concrets. Mon objectif est de continuer à progresser et construire des solutions utiles et bien conçues.</p>
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+     <div class="rounded-xl p-4 text-center" style="background:rgba(196,161,255,0.06); border:1px solid rgba(196,161,255,0.1);">
+      <div class="text-2xl font-bold" style="color:#c4a1ff;">
+       2+
+      </div>
+      <div class="text-xs opacity-50 mt-1">
+       Projets réalisés
+      </div>
+     </div>
+     <div class="rounded-xl p-4 text-center" style="background:rgba(196,161,255,0.06); border:1px solid rgba(196,161,255,0.1);">
+      <div class="text-2xl font-bold" style="color:#c4a1ff;">
+       BUT
+      </div>
+      <div class="text-xs opacity-50 mt-1">
+       Informatique
+      </div>
+     </div>
+     <div class="rounded-xl p-4 text-center" style="background:rgba(196,161,255,0.06); border:1px solid rgba(196,161,255,0.1);">
+      <div class="text-2xl font-bold" style="color:#c4a1ff;">
+       🇫🇷
+      </div>
+      <div class="text-xs opacity-50 mt-1">
+       Basé en France
+      </div>
+     </div>
+     <div class="rounded-xl p-4 text-center" style="background:rgba(196,161,255,0.06); border:1px solid rgba(196,161,255,0.1);">
+      <div class="text-2xl font-bold" style="color:#c4a1ff;">
+       ∞
+      </div>
+      <div class="text-xs opacity-50 mt-1">
+       Curiosité
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills -->
+   <section id="skills" class="max-w-3xl mx-auto px-6 py-24">
+    <div class="mono text-xs tracking-widest uppercase mb-3" style="color:#c4a1ff;">
+     02 — Compétences
+    </div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-10" style="color:#e8e4df;">Ce que je maîtrise</h2>
+    <div class="space-y-6">
+     <div>
+      <div class="flex justify-between mb-2 text-sm">
+       <span>Python</span><span class="mono opacity-50">85%</span>
+      </div>
+      <div class="w-full h-2 rounded-full" style="background:rgba(232,228,223,0.08);">
+       <div class="skill-bar-fill h-2 rounded-full" style="width:0%; background:#c4a1ff;" data-width="85%"></div>
+      </div>
+     </div>
+     <div>
+      <div class="flex justify-between mb-2 text-sm">
+       <span>Java</span><span class="mono opacity-50">75%</span>
+      </div>
+      <div class="w-full h-2 rounded-full" style="background:rgba(232,228,223,0.08);">
+       <div class="skill-bar-fill h-2 rounded-full" style="width:0%; background:#c4a1ff;" data-width="75%"></div>
+      </div>
+     </div>
+     <div>
+      <div class="flex justify-between mb-2 text-sm">
+       <span>Algorithmique</span><span class="mono opacity-50">80%</span>
+      </div>
+      <div class="w-full h-2 rounded-full" style="background:rgba(232,228,223,0.08);">
+       <div class="skill-bar-fill h-2 rounded-full" style="width:0%; background:#c4a1ff;" data-width="80%"></div>
+      </div>
+     </div>
+     <div>
+      <div class="flex justify-between mb-2 text-sm">
+       <span>HTML / CSS / JS</span><span class="mono opacity-50">65%</span>
+      </div>
+      <div class="w-full h-2 rounded-full" style="background:rgba(232,228,223,0.08);">
+       <div class="skill-bar-fill h-2 rounded-full" style="width:0%; background:#c4a1ff;" data-width="65%"></div>
+      </div>
+     </div>
+     <div>
+      <div class="flex justify-between mb-2 text-sm">
+       <span>Développement d'interfaces</span><span class="mono opacity-50">60%</span>
+      </div>
+      <div class="w-full h-2 rounded-full" style="background:rgba(232,228,223,0.08);">
+       <div class="skill-bar-fill h-2 rounded-full" style="width:0%; background:#c4a1ff;" data-width="60%"></div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Projects -->
+   <section id="projects" class="max-w-3xl mx-auto px-6 py-24">
+    <div class="mono text-xs tracking-widest uppercase mb-3" style="color:#c4a1ff;">
+     03 — Projets
+    </div>
+    <h2 class="text-3xl md:text-4xl font-bold mb-10" style="color:#e8e4df;">Ce que j'ai construit</h2>
+    <div class="grid md:grid-cols-2 gap-6"><!-- Project 1 -->
+     <div class="project-card rounded-2xl overflow-hidden relative cursor-pointer group" style="background:rgba(232,228,223,0.04); border:1px solid rgba(232,228,223,0.08);">
+      <div class="overflow-hidden">
+       <div class="project-visual transition-transform duration-500 h-44 flex items-center justify-center" style="background: linear-gradient(135deg, #1a1030, #2d1b69);">
+        <svg width="80" height="80" viewbox="0 0 80 80" fill="none"><rect x="5" y="5" width="70" height="70" rx="8" stroke="#c4a1ff" stroke-width="2" opacity="0.3" /> <circle cx="25" cy="35" r="8" fill="#c4a1ff" opacity="0.8" /> <circle cx="55" cy="35" r="8" fill="#e8e4df" opacity="0.5" /> <circle cx="25" cy="55" r="8" fill="#c4a1ff" opacity="0.5" /> <circle cx="55" cy="55" r="8" fill="#e8e4df" opacity="0.3" /> <circle cx="40" cy="25" r="8" fill="#c4a1ff" opacity="0.6" />
+        </svg>
+       </div>
+      </div>
+      <div class="p-5">
+       <div class="flex gap-2 mb-3"><span class="mono text-xs px-2 py-1 rounded-full" style="background:rgba(196,161,255,0.12); color:#c4a1ff;">Python</span> <span class="mono text-xs px-2 py-1 rounded-full" style="background:rgba(196,161,255,0.12); color:#c4a1ff;">Tkinter</span>
+       </div>
+       <h3 id="project1-title" class="text-lg font-semibold mb-2">Puissance 4 — Mode graphique</h3>
+       <p id="project1-desc" class="text-sm opacity-50 leading-relaxed">Jeu de Puissance 4 complet avec interface graphique en Python. Gestion des tours, détection de victoire et affichage interactif.</p>
+      </div>
+     </div><!-- Project 2 -->
+     <div class="project-card rounded-2xl overflow-hidden relative cursor-pointer group" style="background:rgba(232,228,223,0.04); border:1px solid rgba(232,228,223,0.08);">
+      <div class="overflow-hidden">
+       <div class="project-visual transition-transform duration-500 h-44 flex items-center justify-center" style="background: linear-gradient(135deg, #0f2027, #203a43);">
+        <svg width="80" height="70" viewbox="0 0 80 70" fill="none"><rect x="5" y="5" width="70" height="50" rx="4" stroke="#c4a1ff" stroke-width="2" opacity="0.3" /> <rect x="12" y="12" width="56" height="6" rx="2" fill="#c4a1ff" opacity="0.2" /> <rect x="12" y="24" width="25" height="25" rx="2" fill="#c4a1ff" opacity="0.15" /> <rect x="42" y="24" width="26" height="10" rx="2" fill="#e8e4df" opacity="0.1" /> <rect x="42" y="38" width="26" height="4" rx="1" fill="#e8e4df" opacity="0.08" /> <rect x="42" y="45" width="16" height="4" rx="1" fill="#e8e4df" opacity="0.08" /> <rect x="25" y="60" width="30" height="6" rx="3" fill="#c4a1ff" opacity="0.15" />
+        </svg>
+       </div>
+      </div>
+      <div class="p-5">
+       <div class="flex gap-2 mb-3"><span class="mono text-xs px-2 py-1 rounded-full" style="background:rgba(196,161,255,0.12); color:#c4a1ff;">HTML</span> <span class="mono text-xs px-2 py-1 rounded-full" style="background:rgba(196,161,255,0.12); color:#c4a1ff;">CSS</span> <span class="mono text-xs px-2 py-1 rounded-full" style="background:rgba(196,161,255,0.12); color:#c4a1ff;">JS</span>
+       </div>
+       <h3 id="project2-title" class="text-lg font-semibold mb-2">Site web — Boutique locale</h3>
+       <p id="project2-desc" class="text-sm opacity-50 leading-relaxed">Conception et développement d'un site vitrine pour une boutique locale. Design responsive et présentation des produits.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="border-t px-6 py-10" style="border-color:rgba(232,228,223,0.06);">
+    <div class="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+     <p id="footer-text" class="text-sm opacity-40">© 2025 — Portfolio Développeur. Tous droits réservés.</p>
+     <div class="flex gap-4 opacity-40"><i data-lucide="github" style="width:18px;height:18px;" class="cursor-pointer hover:opacity-100 transition-opacity"></i> <i data-lucide="linkedin" style="width:18px;height:18px;" class="cursor-pointer hover:opacity-100 transition-opacity"></i> <i data-lucide="mail" style="width:18px;height:18px;" class="cursor-pointer hover:opacity-100 transition-opacity"></i>
+     </div>
+    </div>
+   </footer>
+  </div>
+  <script>
+  lucide.createIcons();
+
+  const defaultConfig = {
+    background_color: "#0a0a0f",
+    surface_color: "#1a1030",
+    text_color: "#e8e4df",
+    primary_action: "#c4a1ff",
+    secondary_action: "#8b7aad",
+    font_family: "Sora",
+    font_size: 16,
+    hero_name: "Développeur<br><span style='color:#c4a1ff;'>Junior</span>",
+    hero_subtitle: "Étudiant en BUT Informatique — passionné par le code et la résolution de problèmes",
+    about_text: "Étudiant en BUT Informatique à Maubeuge, je me passionne pour le développement logiciel et la création d'applications. J'ai une solide base en Python et Java, et j'aime relever des défis techniques à travers des projets concrets. Mon objectif est de continuer à progresser et construire des solutions utiles et bien conçues.",
+    project1_title: "Puissance 4 — Mode graphique",
+    project1_desc: "Jeu de Puissance 4 complet avec interface graphique en Python. Gestion des tours, détection de victoire et affichage interactif.",
+    project2_title: "Site web — Boutique locale",
+    project2_desc: "Conception et développement d'un site vitrine pour une boutique locale. Design responsive et présentation des produits.",
+    footer_text: "© 2025 — Portfolio Développeur. Tous droits réservés."
+  };
+
+  async function onConfigChange(config) {
+    const c = (k) => config[k] || defaultConfig[k];
+    const baseSize = c('font_size');
+    const font = c('font_family');
+    const fontStack = `${font}, sans-serif`;
+
+    const app = document.getElementById('app');
+    app.style.background = c('background_color');
+    app.style.color = c('text_color');
+    app.style.fontFamily = fontStack;
+
+    document.getElementById('hero-name').innerHTML = c('hero_name');
+    document.getElementById('hero-name').style.fontSize = `${baseSize * 3}px`;
+    document.getElementById('hero-name').style.color = c('text_color');
+
+    document.getElementById('hero-subtitle').textContent = c('hero_subtitle');
+    document.getElementById('hero-subtitle').style.fontSize = `${baseSize * 1.15}px`;
+
+    document.getElementById('about-text').textContent = c('about_text');
+    document.getElementById('about-text').style.fontSize = `${baseSize}px`;
+
+    document.getElementById('project1-title').textContent = c('project1_title');
+    document.getElementById('project1-desc').textContent = c('project1_desc');
+    document.getElementById('project2-title').textContent = c('project2_title');
+    document.getElementById('project2-desc').textContent = c('project2_desc');
+    document.getElementById('footer-text').textContent = c('footer_text');
+
+    // Accent color
+    const accent = c('primary_action');
+    document.querySelectorAll('[style*="color:#c4a1ff"]').forEach(el => el.style.color = accent);
+    document.querySelectorAll('[style*="background:#c4a1ff"]').forEach(el => el.style.background = accent);
+
+    // Nav link underlines
+    const navStyle = document.querySelector('nav style');
+    if (navStyle) navStyle.textContent = `.nav-link::after { background-color: ${accent}; }`;
+
+    // Skill bars
+    document.querySelectorAll('.skill-bar-fill').forEach(el => el.style.background = accent);
+
+    // Tags
+    document.querySelectorAll('.mono.text-xs.px-2').forEach(el => el.style.color = accent);
+  }
+
+  function mapToCapabilities(config) {
+    const c = (k) => config[k] || defaultConfig[k];
+    function mut(key) {
+      return {
+        get: () => c(key),
+        set: (v) => { config[key] = v; window.elementSdk.setConfig({ [key]: v }); }
+      };
+    }
+    return {
+      recolorables: [mut('background_color'), mut('surface_color'), mut('text_color'), mut('primary_action'), mut('secondary_action')],
+      borderables: [],
+      fontEditable: mut('font_family'),
+      fontSizeable: mut('font_size')
+    };
+  }
+
+  function mapToEditPanelValues(config) {
+    const c = (k) => config[k] || defaultConfig[k];
+    return new Map([
+      ["hero_name", c("hero_name")],
+      ["hero_subtitle", c("hero_subtitle")],
+      ["about_text", c("about_text")],
+      ["project1_title", c("project1_title")],
+      ["project1_desc", c("project1_desc")],
+      ["project2_title", c("project2_title")],
+      ["project2_desc", c("project2_desc")],
+      ["footer_text", c("footer_text")]
+    ]);
+  }
+
+  window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+
+  // Animate skill bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  observer.observe(document.getElementById('skills'));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f9fb641e4b019a5',t:'MTc3ODQ4NzA3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
